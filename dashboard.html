@@ -4,526 +4,534 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Crypto Mining Dashboard</title>
-    <link rel="icon" type="image/png" href="src/app-logo-dark.png">
+    <title>Huntington Bank Dashboard</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         body {
-            background-color: #1e1e2f;
-            /* Dark blue background */
-            color: #ffffff;
+            background-color: #f5f5f5;
+            color: #333;
             font-family: 'Arial', sans-serif;
         }
 
         .navbar {
-            background-color: #263238;
-            /* Darker blue-gray */
+            background-color: #006400;
+            /* Dark green */
+            padding: 10px 20px;
         }
 
-        .navbar-brand img {
-            height: 40px;
-        }
-
-        .change {
+        .navbar-brand {
             color: white;
+            font-size: 1.5em;
         }
 
-        .change img {
-            border-radius: 50%;
+        .nav-tabs {
+            background-color: #006400;
+            border-bottom: none;
         }
 
-        .dashboard-container {
-            max-width: 900px;
-            margin: 40px auto;
-            text-align: center;
+        .nav-link {
+            color: white !important;
+            margin-right: 10px;
+            border: none;
         }
 
-        .dashboard-card {
+        .nav-link.active {
+            background-color: #ffffff;
+            color: #006400 !important;
+            border-radius: 5px;
+        }
+
+        .account-card,
+        .tab-content-section {
+            background-color: #fff;
             padding: 20px;
             border-radius: 8px;
-            margin-bottom: 20px;
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-
-        .dashboard-card:hover {
-            transform: scale(1.05);
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-        }
-
-        /* Update colors for different cards */
-        .balance-card {
-            background-color: #0277bd;
-            /* Blue */
-        }
-
-        .profit-card {
-            background-color: #42a5f5;
-            /* Lighter blue */
-        }
-
-        .bonus-card {
-            background-color: #81c784;
-            /* Greenish blue */
-        }
-
-        .deposit-card {
-            background-color: #0288d1;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            margin-bottom: 20px
-                /* Darker blue */
-        }
-
-        .withdraw-card {
-            background-color: #e57373;
-            /* Light red */
-        }
-
-        .subscription-card {
-            background-color: #78909c;
-            /* Grayish blue */
-        }
-
-        .crypto-card {
-            background-color: #039be5;
-            /* Bright blue */
-        }
-
-        .balance-info {
-            background-color: #ff9800;
-            color: #000;
-            transition: transform 0.3s ease;
-        }
-
-        .balance-info:hover {
-            transform: translateY(-5px);
-        }
-
-        /* ========== Surcharge Card ========== */
-        .surcharge-info {
-            background-color: #f44336;
-            color: #131212;
-            transition: transform 0.3s ease;
-        }
-
-        .surcharge-info:hover {
-            transform: translateY(-5px);
-        }
-
-        /* ========== Payment Due Date Card ========== */
-        .due-date-info {
-            background-color: #4caf50;
-            color: #fff;
-            transition: transform 0.3s ease;
-        }
-
-        .due-date-info:hover {
-            transform: translateY(-5px);
-        }
-
-
-        .mining-status {
-            font-size: 1.2em;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             margin-top: 20px;
+        }
+
+        .balance {
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+
+        .transactions-table,
+        .pending-transactions {
+            margin-top: 20px;
+        }
+
+        .table th,
+        .table td {
+            vertical-align: middle;
         }
 
         .logout-button {
+            background-color: #dc3545;
+            color: white;
             margin-top: 20px;
-            background-color: #f44336;
-            /* Red */
-            color: white;
         }
 
-        .chart-container {
-            margin-top: 30px;
+        .hidden {
+            display: none;
         }
 
-        /* Notification Styling */
-        .notification-container {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            z-index: 1000;
-            max-width: 300px;
+        .form-group {
+            margin-bottom: 15px;
         }
 
-        .notification-item {
-            background-color: #ff9800;
-            /* Orange for warnings */
-            padding: 10px;
-            margin-bottom: 10px;
-            border-radius: 5px;
-            color: rgb(238, 14, 14);
-            opacity: 0.9;
-            transition: opacity 0.5s ease;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+        .alert {
+            margin-top: 10px;
         }
-
-        .notification-item.hidden {
-            opacity: 0;
-            pointer-events: none;
-        }
-
-        .close-btn {
-            background-color: transparent;
-            border: none;
-            color: white;
-            font-size: 16px;
-            cursor: pointer;
-            font-weight: bold;
-            margin-left: 10px;
-            transition: color 0.3s;
-        }
-
-        .close-btn:hover {
-            color: #d32f2f;
-            /* Red color for hover effect */
-        }
-
-        /* Icon Styling */
-        .notification-content span {
-            margin-right: 8px;
-            color: #d32f2f;
-            /* Red for warning icon */
-        }
-
-
-        /* Notification content */
     </style>
 </head>
 
 <body>
     <header>
-        <!-- Navigation Bar -->
-        <nav class="navbar navbar-expand-lg">
+        <nav class="navbar">
             <div class="container">
-                <a class="navbar-brand change" href="#">
-                    <img id="dashboardProfilePic" src="" alt="profile picture" width="100" height="100"
-                        style="border-radius: 50%;">
-
+                <a class="navbar-brand" href="#">
+                    <i class="fas fa-university"></i> Huntington Bank
                 </a>
-                <div class="d-flex align-items-center">
-                    <span class="me-2 text-success">Verified</span>
-                    <i class="fa fa-check-circle" style="color: green; font-size: 1.5em;"></i>
-                </div>
             </div>
         </nav>
+        <div class="container mt-2">
+            <p id="welcomeMessage">Welcome, <span id="userName"></span> <small id="currentDateTime"></small></p>
+            <ul class="nav nav-tabs" id="mainTabs">
+                <li class="nav-item">
+                    <a class="nav-link active" data-tab="accounts">Accounts</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-tab="transfer">Transfer</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-tab="paybills">Pay Bills</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-tab="deposit">Deposit</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-tab="withdraw">Withdraw</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-tab="me">Me</a>
+                </li>
+            </ul>
+            <ul class="nav nav-tabs mt-2">
+                <li class="nav-item">
+                    <a class="nav-link" data-tab="statements">Statements</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-tab="spending">Spending Analysis</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-tab="alerts">Alerts</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-tab="security">Security</a>
+                </li>
+            </ul>
+        </div>
     </header>
 
-    <main class="dashboard-container">
-        <h1>Crypto Mining Dashboard</h1>
-        <p id="welcomeMessage"></p>
-
-        <!-- Mining Status -->
-        <div class="mining-status">
-            <p><strong>Status:</strong> <span class="text-success">Mining in Progress...</span></p>
-            <p><strong>Estimated Earnings:</strong> <span class="text-warning" id="estimatedEarnings">0.000 BTC</span>
-                in the last hour</p>
-        </div>
-
-        <!-- Cryptocurrency Balances -->
-        <h4>Cryptocurrency Balances</h4>
-        <div class="row">
-            <div class="col-12 col-sm-6">
-                <div class="dashboard-card crypto-card">
-                    <h5>Bitcoin Balance</h5>
-                    <p id="bitcoinBalance"><strong>1.5 BTC</strong></p>
-                    <p>Last Updated: <span id="usDate"></span></p>
-
-
-                </div>
-            </div>
-            <div class="col-12 col-sm-6">
-                <div class="dashboard-card crypto-card">
-                    <h5>Ethereum Balance</h5>
-                    <p><strong>10 ETH</strong></p>
-                    <p>Last Updated: <span id="usDate"></span></p>
-                    <p> <span id="usDateTotal"></span></p>
-
-                </div>
-            </div>
-        </div>
-
-        <!-- Financial Information -->
-        <h4 class="mt-4">Financial Information</h4>
-        <div class="row">
-            <div class="col-md-4">
-                <div class="dashboard-card balance-info">
-                    <h5>⚖️ Balance</h5>
-                    <p>$532,027.26</p>
-                </div>
+    <main class="container">
+        <!-- Accounts Tab -->
+        <div id="accounts" class="tab-content-section">
+            <div class="account-card">
+                <h4>Huntington Perks Checking (****6789)</h4>
+                <p><strong>Initial Deposit Required:</strong> $5,000.00</p>
+                <p><strong>Deposit Made:</strong> $3,500.00</p>
+                <p><strong>Available Balance</strong></p>
+                <p class="balance" id="availableBalance">$3,500.00</p>
+                <p><strong>Current Balance</strong></p>
+                <p class="balance" id="currentBalance">$3,500.00</p>
             </div>
 
-            <div class="col-12 col-sm-6 col-md-4">
-                <div class="dashboard-card profit-card">
-                    <h5>Total Profit</h5>
-                    <p id="totalProfit"><strong>$1</strong></p>
-                    <p id="returnRate">Return Rate: 50%</p>
-                </div>
+            <div class="pending-transactions">
+                <h4>Pending Transactions</h4>
+                <p><strong>Pending Amount:</strong> $520,000.00 (Processing)</p>
             </div>
-            <div class="col-12 col-sm-6 col-md-4">
-                <div class="dashboard-card bonus-card">
-                    <h5>Bonus Earnings</h5>
-                    <p><strong>$7,500</strong></p>
-                    <p>Expiry: 7/20/2025</p>
-                </div>
+
+            <div class="transactions-table">
+                <h4>Transaction History</h4>
+                <table class="table table-striped" id="transactionsTable">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Description</th>
+                            <th>Amount</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Transactions will be populated here -->
+                    </tbody>
+                </table>
             </div>
         </div>
 
-        <div class="row">
-            <div class="col-md-4">
-                <div class="dashboard-card surcharge-info">
-                    <h5>💸 Surcharges</h5>
-                    <p>$-1500</p>
+        <!-- Transfer Tab -->
+        <div id="transfer" class="tab-content-section hidden">
+            <h4>Transfer Funds</h4>
+            <form id="transferForm">
+                <div class="form-group">
+                    <label for="recipientName">Recipient Name:</label>
+                    <input type="text" class="form-control" id="recipientName" placeholder="Enter recipient name"
+                        required>
                 </div>
-            </div>
-            <div class="col-md-4">
-                <div class="dashboard-card due-date-info">
-                    <h5>📅 Payment Due Date</h5>
-                    <p> June 20th, 2025</p>
+                <div class="form-group">
+                    <label for="bankName">Bank Name:</label>
+                    <select class="form-control" id="bankName" required>
+                        <option value="">Select a bank</option>
+                        <option value="Bank of America">Bank of America</option>
+                        <option value="Chase">Chase</option>
+                        <option value="Wells Fargo">Wells Fargo</option>
+                        <option value="Citibank">Citibank</option>
+                        <option value="US Bank">US Bank</option>
+                        <option value="PNC Bank">PNC Bank</option>
+                        <option value="TD Bank">TD Bank</option>
+                        <option value="Capital One">Capital One</option>
+                        <option value="Fifth Third Bank">Fifth Third Bank</option>
+                        <option value="Other">Other</option>
+                    </select>
                 </div>
-            </div>
-            <div class="col-12 col-sm-6 col-md-4">
-                <div class="dashboard-card subscription-card">
-                    <h5>Subscription Plan</h5>
-                    <p><strong>Platinum</strong></p>
+                <div class="form-group">
+                    <label for="routingNumber">Routing Number:</label>
+                    <input type="text" class="form-control" id="routingNumber"
+                        placeholder="Enter 9-digit routing number" pattern="\d{9}" required>
                 </div>
-            </div>
-
-
+                <div class="form-group">
+                    <label for="accountNumber">Account Number:</label>
+                    <input type="text" class="form-control" id="accountNumber" placeholder="Enter account number"
+                        required>
+                </div>
+                <div class="form-group">
+                    <label for="accountType">Account Type:</label>
+                    <select class="form-control" id="accountType" required>
+                        <option value="">Select account type</option>
+                        <option value="Checking">Checking</option>
+                        <option value="Savings">Savings</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="transferAmount">Amount:</label>
+                    <input type="number" class="form-control" id="transferAmount" placeholder="Enter amount" min="1"
+                        required>
+                </div>
+                <div class="form-group">
+                    <label for="memo">Memo (Optional):</label>
+                    <input type="text" class="form-control" id="memo" placeholder="Enter memo or description">
+                </div>
+                <button type="submit" class="btn btn-primary">Transfer</button>
+            </form>
+            <div id="transferAlert" class="alert hidden"></div>
         </div>
 
-        <!-- Notification Area -->
-        <div class="notification-container" id="notificationContainer">
-            <div class="notification-content">
-                <span>⚠️ WARNING:</span> Failure to pay the required surcharges may result in irreversible loss of your
-                investment. Please ensure that all applicable fees are settled immediately to secure your funds.
-            </div>
+        <!-- Pay Bills Tab -->
+        <div id="paybills" class="tab-content-section hidden">
+            <h4>Pay Bills</h4>
+            <form id="payBillsForm">
+                <div class="form-group">
+                    <label for="payee">Payee:</label>
+                    <input type="text" class="form-control" id="payee" placeholder="Enter payee name" required>
+                </div>
+                <div class="form-group">
+                    <label for="billAmount">Amount:</label>
+                    <input type="number" class="form-control" id="billAmount" placeholder="Enter amount" min="1"
+                        required>
+                </div>
+                <button type="submit" class="btn btn-primary">Pay Bill</button>
+            </form>
+            <div id="payBillsAlert" class="alert hidden"></div>
         </div>
 
-        <!-- Charts Section -->
-        <div class="chart-container">
-            <h4>Mining Profit Over Time</h4>
-            <canvas id="profitChart"></canvas>
-            <h4 class="mt-4">Cryptocurrency Balance Trends</h4>
-            <canvas id="balanceChart"></canvas>
+        <!-- Deposit Tab -->
+        <div id="deposit" class="tab-content-section hidden">
+            <h4>Deposit Funds</h4>
+            <form id="depositForm">
+                <div class="form-group">
+                    <label for="depositAmount">Amount:</label>
+                    <input type="number" class="form-control" id="depositAmount" placeholder="Enter amount" min="1"
+                        required>
+                </div>
+                <button type="submit" class="btn btn-primary">Deposit</button>
+            </form>
+            <div id="depositAlert" class="alert hidden"></div>
         </div>
 
-        <!-- Logout Button -->
-        <button id="logoutButton" class="btn btn-danger logout-button">Logout</button>
+        <!-- Withdraw Tab -->
+        <div id="withdraw" class="tab-content-section hidden">
+            <h4>Withdraw Funds</h4>
+            <form id="withdrawForm">
+                <div class="form-group">
+                    <label for="withdrawType">Withdrawal Type:</label>
+                    <select class="form-control" id="withdrawType" required>
+                        <option value="">Select withdrawal type</option>
+                        <option value="ATM">ATM</option>
+                        <option value="In-Branch">In-Branch</option>
+                        <option value="Online Transfer">Online Transfer</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="withdrawAmount">Amount:</label>
+                    <input type="number" class="form-control" id="withdrawAmount" placeholder="Enter amount" min="1"
+                        required>
+                </div>
+                <div class="form-group">
+                    <label for="withdrawMemo">Memo (Optional):</label>
+                    <input type="text" class="form-control" id="withdrawMemo" placeholder="Enter memo or description">
+                </div>
+                <button type="submit" class="btn btn-primary">Withdraw</button>
+            </form>
+            <div id="withdrawAlert" class="alert hidden"></div>
+        </div>
+
+        <!-- Me Tab -->
+        <div id="me" class="tab-content-section hidden">
+            <h4>Profile Information</h4>
+            <p><strong>Name:</strong> <span id="profileName"></span></p>
+            <p><strong>Email:</strong> <span id="profileEmail"></span></p>
+            <p><strong>Phone:</strong> <span id="profilePhone">(754) 295-7331</span></p>
+            <p><strong>Address:</strong> <span id="profileAddress">Im at Wilton Manor
+                    2675 N Andrews Ave
+                    Ft Lauderdale FL 33311 Room 11B</span></p>
+            <button class="btn btn-secondary" id="editProfile">Edit Profile</button>
+        </div>
+
+        <!-- Statements Tab -->
+        <div id="statements" class="tab-content-section hidden">
+            <h4>Statements</h4>
+            <p>View your monthly statements here.</p>
+            <ul>
+                <li><a href="#">September 2025 Statement</a></li>
+            </ul>
+        </div>
+
+        <!-- Spending Analysis Tab -->
+        <div id="spending" class="tab-content-section hidden">
+            <h4>Spending Analysis</h4>
+            <p>No spending history available. This is a new account with no transactions other than the initial deposit.
+            </p>
+        </div>
+
+        <!-- Alerts Tab -->
+        <div id="alerts" class="tab-content-section hidden">
+            <h4>Alerts</h4>
+            <ul id="alertsList">
+                <li>Initial deposit of $5,000.00 not yet met. Additional $1,500.00 required.</li>
+            </ul>
+        </div>
+
+        <!-- Security Tab -->
+        <div id="security" class="tab-content-section hidden">
+            <h4>Security Settings</h4>
+            <p>Manage your security preferences.</p>
+            <button class="btn btn-warning">Change Password</button>
+            <button class="btn btn-warning mt-2">Enable 2FA</button>
+        </div>
+
+        <button id="logoutButton" class="btn logout-button">Logout</button>
     </main>
 
-
-
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const storedUserData = JSON.parse(localStorage.getItem("userData"));
+        // Initial data
+        let accountData = {
+            availableBalance: 3500.00,
+            currentBalance: 3500.00,
+            initialDepositRequired: 5000.00,
+            depositMade: 3500.00,
+            pendingTransactions: [{ amount: 520000.00, description: 'Large Transfer', date: new Date().toLocaleDateString() }],
+            transactions: [
+                { date: 'Sep 11, 2025', description: 'Deposit', amount: 3500.00, type: 'credit' }
+            ]
+        };
 
-            if (storedUserData && storedUserData.profilePic) {
-                document.getElementById("dashboardProfilePic").src = storedUserData.profilePic;
-            } else {
-                document.getElementById("dashboardProfilePic").src = "default-profile.png"; // Default image if no picture is found
+        // Load from localStorage if available
+        if (localStorage.getItem('accountData')) {
+            accountData = JSON.parse(localStorage.getItem('accountData'));
+        }
+
+        // Function to save data
+        function saveData() {
+            localStorage.setItem('accountData', JSON.stringify(accountData));
+        }
+
+        // Function to update balances
+        function updateBalances() {
+            document.getElementById('availableBalance').textContent = `$${accountData.availableBalance.toLocaleString('en-US', { minimumFractionDigits: 2 })}`;
+            document.getElementById('currentBalance').textContent = `$${accountData.currentBalance.toLocaleString('en-US', { minimumFractionDigits: 2 })}`;
+        }
+
+        // Function to render transactions
+        function renderTransactions() {
+            const tbody = document.querySelector('#transactionsTable tbody');
+            tbody.innerHTML = '';
+            accountData.transactions.forEach(tx => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${tx.date}</td>
+                    <td>${tx.description}</td>
+                    <td style="color: ${tx.type === 'credit' ? 'green' : 'red'};">${tx.type === 'credit' ? '+' : ''}$${Math.abs(tx.amount).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        // Tab switching
+        document.querySelectorAll('.nav-link').forEach(tab => {
+            tab.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetTab = this.getAttribute('data-tab');
+                document.querySelectorAll('.tab-content-section').forEach(section => {
+                    section.classList.add('hidden');
+                });
+                document.getElementById(targetTab).classList.remove('hidden');
+
+                // Remove active class from all tabs
+                document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+
+        // Transfer form submission
+        document.getElementById('transferForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+            if (accountData.depositMade < accountData.initialDepositRequired) {
+                showAlert('transferAlert', 'danger', 'If the initial deposit of $5000 has not been made, you cannot complete your transfer.');
+                return;
+            }
+            const amount = parseFloat(document.getElementById('transferAmount').value);
+            if (amount > accountData.availableBalance) {
+                showAlert('transferAlert', 'danger', 'Insufficient funds.');
+                return;
+            }
+            const recipientName = document.getElementById('recipientName').value;
+            const bankName = document.getElementById('bankName').value;
+            const routingNumber = document.getElementById('routingNumber').value;
+            const accountNumber = document.getElementById('accountNumber').value;
+            const accountType = document.getElementById('accountType').value;
+            const memo = document.getElementById('memo').value;
+            accountData.availableBalance -= amount;
+            accountData.currentBalance -= amount;
+            accountData.transactions.unshift({
+                date: new Date().toLocaleDateString(),
+                description: `Transfer to ${recipientName} at ${bankName} (${accountType}) - Memo: ${memo || 'None'}`,
+                amount: -amount,
+                type: 'debit'
+            });
+            updateBalances();
+            renderTransactions();
+            saveData();
+            showAlert('transferAlert', 'success', `Transferred $${amount.toFixed(2)} successfully.`);
+            this.reset();
+        });
+
+        // Pay Bills form submission
+        document.getElementById('payBillsForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+            const amount = parseFloat(document.getElementById('billAmount').value);
+            if (amount > accountData.availableBalance) {
+                showAlert('payBillsAlert', 'danger', 'Insufficient funds.');
+                return;
+            }
+            accountData.availableBalance -= amount;
+            accountData.currentBalance -= amount;
+            accountData.transactions.unshift({
+                date: new Date().toLocaleDateString(),
+                description: `Bill payment to ${document.getElementById('payee').value}`,
+                amount: -amount,
+                type: 'debit'
+            });
+            updateBalances();
+            renderTransactions();
+            saveData();
+            showAlert('payBillsAlert', 'success', `Paid $${amount.toFixed(2)} successfully.`);
+            this.reset();
+        });
+
+        // Deposit form submission (disabled)
+        document.getElementById('depositForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+            showAlert('depositAlert', 'danger', 'Deposit cannot be made at this time.');
+            this.reset();
+        });
+
+        // Withdraw form submission (disabled)
+        document.getElementById('withdrawForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+            showAlert('withdrawAlert', 'danger', 'Withdrawals are currently unavailable.');
+            this.reset();
+        });
+
+        // Show alert
+        function showAlert(id, type, message) {
+            const alert = document.getElementById(id);
+            alert.classList.remove('hidden', 'alert-success', 'alert-danger');
+            alert.classList.add(`alert-${type}`);
+            alert.textContent = message;
+            setTimeout(() => alert.classList.add('hidden'), 5000);
+        }
+
+        // Spending Chart (removed, no history)
+        function initSpendingChart() {
+            // No chart initialization since no spending history
+        }
+
+        // Update date and time (United States EDT)
+        function updateDateTime() {
+            const now = new Date();
+            const options = { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit', timeZoneName: 'short', hour12: true };
+            document.getElementById('currentDateTime').textContent = now.toLocaleString('en-US', options).replace('EDT', 'EDT');
+        }
+
+        // Logout with confirmation
+        document.getElementById('logoutButton').addEventListener('click', function () {
+            if (confirm('Are you sure you want to logout?')) {
+                localStorage.setItem('isLoggedin', 'false');
+                localStorage.removeItem('currentUserName');
+                window.location.href = 'index.html';
             }
         });
 
-        let totalEarnings = 0; // Total earnings from mining
-        const miningRate = 0.00001; // Rate of mining earnings per interval (in BTC)
-        const updateInterval = 5000; // Update interval in milliseconds (5 seconds)
-        let totalDeposited = 100; // Start with an initial deposit of $100
-        let miningStarted = true; // Set to true to start mining automatically
+        // Edit Profile (placeholder)
+        document.getElementById('editProfile').addEventListener('click', function () {
+            alert('Profile editing feature coming soon!');
+        });
 
-        // Function to handle user logout
-        function logout() {
-            localStorage.setItem('isLoggedin', 'false'); // Set login state to false
-            window.location.href = 'index.html'; // Redirect to login/signup page
-        }
-
-        // Function to create and display a notification
-        function showNotification(message) {
-            const notificationContainer = document.getElementById('notificationContainer');
-            const notificationItem = document.createElement('div');
-            notificationItem.className = 'notification-item';
-            notificationItem.textContent = message;
-
-            // Append notification to container
-            notificationContainer.appendChild(notificationItem);
-
-            // Remove notification after 5 seconds
-            setTimeout(() => {
-                notificationItem.classList.add('hidden');
-                setTimeout(() => notificationContainer.removeChild(notificationItem), 500); // Remove from DOM after fade out
-            }, 5000);
-        }
-
-        let totalProfit = 0; // Start with $0 profit
-        const totalDeposit = 1000; // Initial deposit amount
-
-        function simulateMining() {
-            // Mining rate: $1 every 3 minutes, spread over 36 intervals (5 seconds per interval)
-            const miningRate = 0.02778; // Earn $0.02778 per 5 seconds
-
-            setInterval(() => {
-                totalEarnings += miningRate; // Increase earnings by $0.02778 every interval
-                document.getElementById('estimatedEarnings').textContent = totalEarnings.toFixed(5) + " BTC";
-
-                // USSSSpdate the Bitcoin balance (for display purposes, in BTC)
-                const currentBalance = parseFloat(document.getElementById('bitcoinBalance').textContent);
-                const newBalance = (currentBalance + totalEarnings).toFixed(5);
-                document.getElementById('bitcoinBalance').innerHTML = `<strong>${newBalance} BTC</strong>`;
-                document.getElementById('lastUpdated').textContent = new Date().toLocaleDateString();
-
-                // Simulate the withdrawal increase, adding $0.02778 every interval
-                const currentTotalWithdrawal = parseFloat(document.getElementById('totalWithdrawal').textContent.replace('$', '').replace(',', '') || 0);
-                const updatedTotalWithdrawal = (currentTotalWithdrawal + miningRate).toFixed(2);
-
-                // Update the displayed withdrawal amount
-                document.getElementById('totalWithdrawal').innerHTML = `<strong>$${updatedTotalWithdrawal}</strong>`;
-                document.getElementById('totalLastUpdated').textContent = new Date().toLocaleDateString();
-
-                // Update the total profit (matches mining progress)
-                totalProfit += miningRate; // Add mining rate to total profit
-                document.getElementById('totalProfit').innerHTML = `<strong>$${totalProfit.toFixed(2)}</strong>`; // Update Total Profit card
-
-                // Calculate the return rate based on profit and deposit
-                const returnRate = ((totalProfit / totalDeposit) * 100).toFixed(2);
-                document.getElementById('returnRate').innerHTML = `Return Rate: ${returnRate}%`; // Update return rate
-
-                // Show notification about earnings
-                showNotification(`You earned $${miningRate.toFixed(2)}! Your withdrawal amount is now $${updatedTotalWithdrawal}.`);
-            }, 5000); // Interval is 5 seconds
-        }
-
-
-
-
-        // Display user's name on login
+        // Check login status and set user name
         window.onload = function () {
             const isLoggedIn = localStorage.getItem('isLoggedin');
-            const welcomeMessage = document.getElementById('welcomeMessage');
-
             if (isLoggedIn !== 'true') {
-                // Redirect to signup page if user is not logged in
                 window.location.href = 'index.html';
             } else {
-                const userName = localStorage.getItem('userName');
-                welcomeMessage.textContent = `Hello, ${userName}! Welcome to your Crypto Dashboard.`;
-
-                // Start mining simulation automatically
-                simulateMining(); // Call simulateMining here
+                const storedUserData = JSON.parse(localStorage.getItem('userData'));
+                const userName = localStorage.getItem('currentUserName') || storedUserData.name || 'User';
+                document.getElementById('userName').textContent = userName;
+                document.getElementById('profileName').textContent = userName;
+                document.getElementById('profileEmail').textContent = storedUserData.email;
+                updateBalances();
+                renderTransactions();
+                initSpendingChart();
+                updateDateTime();
+                setInterval(updateDateTime, 1000); // Update every second
             }
         };
-        document.getElementById('logoutButton').addEventListener('click', function () {
-            localStorage.setItem('isLoggedin', 'false'); // Clear login state
-            window.location.href = 'index.html'; // Redirect to signup page
-        });
 
-
-        // Attach logout event
-        document.getElementById('logoutButton').addEventListener('click', logout);
-    </script>
-    <script>
-        // Chart.js code to generate charts (dummy data)
-        const profitChartCtx = document.getElementById('profitChart').getContext('2d');
-        const profitChart = new Chart(profitChartCtx, {
-            type: 'line',
-            data: {
-                labels: ['0h', '1h', '2h', '3h', '4h', '5h'],
-                datasets: [{
-                    label: 'Profit (BTC)',
-                    data: [0, 0.001, 0.002, 0.003, 0.004, 0.005],
-                    borderColor: 'rgba(75, 192, 192, 1)',
-                    borderWidth: 2,
-                    fill: false
-                }]
-            },
-            options: {
-                scales: {
-                    x: {
-                        title: {
-                            display: true,
-                            text: 'Time'
-                        }
-                    },
-                    y: {
-                        title: {
-                            display: true,
-                            text: 'Profit (BTC)'
-                        },
-                        beginAtZero: true
-                    }
-                }
-            }
-        });
-
-        function updateUSDate() {
-            const options = {
-                timeZone: 'America/New_York', // Change this to your preferred US time zone
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric',
-                hour: '2-digit',
-                minute: '2-digit',
-                second: '2-digit'
-            };
-
-            const usTime = new Intl.DateTimeFormat('en-US', options).format(new Date());
-
-            document.getElementById('usDate').innerText = usTime;
-            document.getElementById('usDateTotal').innerText = usTime;
+        // Auto-logout after 10 minutes of inactivity
+        let inactivityTimer;
+        function resetInactivityTimer() {
+            clearTimeout(inactivityTimer);
+            inactivityTimer = setTimeout(() => {
+                alert('Session timed out due to inactivity.');
+                localStorage.setItem('isLoggedin', 'false');
+                localStorage.removeItem('currentUserName');
+                window.location.href = 'index.html';
+            }, 600000);
         }
-
-        // Update date immediately and refresh every second
-        updateUSDate();
-        setInterval(updateUSDate, 1000);
-
-        const balanceChartCtx = document.getElementById('balanceChart').getContext('2d');
-        const balanceChart = new Chart(balanceChartCtx, {
-            type: 'bar',
-            data: {
-                labels: ['Bitcoin', 'Ethereum'],
-                datasets: [{
-                    label: 'Balance',
-                    data: [1.5, 10], // Dummy data for balances
-                    backgroundColor: [
-                        'rgba(255, 99, 132, 0.2)',
-                        'rgba(54, 162, 235, 0.2)'
-                    ],
-                    borderColor: [
-                        'rgba(255, 99, 132, 1)',
-                        'rgba(54, 162, 235, 1)'
-                    ],
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true
-                    }
-                }
-            }
-        });
-
-
-
-        document.addEventListener("DOMContentLoaded", function () {
-            const storedUserData = JSON.parse(localStorage.getItem("userData"));
-
-            if (!storedUserData) {
-                window.location.href = "index.html"; // Redirect to login page if user is not logged in
-            }
-        });
+        document.addEventListener('mousemove', resetInactivityTimer);
+        document.addEventListener('keydown', resetInactivityTimer);
+        resetInactivityTimer();
     </script>
-
-
-
-
-
 </body>
 
 </html>
