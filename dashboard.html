@@ -13,108 +13,77 @@
             color: #333;
             font-family: 'Arial', sans-serif;
         }
-
         .navbar {
-            background-color: #006400;
-            /* Dark green */
+            background-color: #006400; /* Dark green */
             padding: 10px 20px;
         }
-
         .navbar-brand {
             color: white;
             font-size: 1.5em;
         }
-
         .nav-tabs {
             background-color: #006400;
             border-bottom: none;
         }
-
         .nav-link {
             color: white !important;
             margin-right: 10px;
             border: none;
         }
-
         .nav-link.active {
             background-color: #ffffff;
             color: #006400 !important;
             border-radius: 5px;
         }
-
-        .account-card,
-        .tab-content-section {
+        .account-card, .tab-content-section {
             background-color: #fff;
             padding: 20px;
             border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
             margin-top: 20px;
         }
-
         .balance {
             font-size: 1.5em;
             font-weight: bold;
         }
-
         .transactions-table {
             margin-top: 20px;
-            overflow-x: auto;
-            /* Enable horizontal scrolling on small screens */
+            overflow-x: auto; /* Enable horizontal scrolling on small screens */
         }
-
         .table-responsive {
-            min-height: 0.01%;
-            /* Ensure responsiveness */
-            overflow-x: auto;
-            /* Horizontal scroll for small screens */
+            min-height: 0.01%; /* Ensure responsiveness */
+            overflow-x: auto; /* Horizontal scroll for small screens */
         }
-
-        .table th,
-        .table td {
+        .table th, .table td {
             vertical-align: middle;
-            white-space: nowrap;
-            /* Prevent text wrapping */
-            padding: 8px;
-            /* Adjust padding for better spacing */
+            white-space: nowrap; /* Prevent text wrapping */
+            padding: 8px; /* Adjust padding for better spacing */
+            font-size: 14px; /* Base font size */
         }
-
         .logout-button {
             background-color: #dc3545;
             color: white;
             margin-top: 20px;
         }
-
         .hidden {
             display: none;
         }
-
         .form-group {
             margin-bottom: 15px;
         }
-
         .alert {
             margin-top: 10px;
         }
-
         @media (max-width: 768px) {
-
-            .table th,
-            .table td {
-                font-size: 14px;
-                /* Smaller font size on mobile */
-                padding: 6px;
-                /* Reduced padding on mobile */
+            .table th, .table td {
+                font-size: 12px; /* Smaller font size on mobile */
+                padding: 6px; /* Reduced padding on mobile */
             }
-
             .nav-link {
-                font-size: 14px;
-                /* Adjust nav link size for mobile */
+                font-size: 12px; /* Adjust nav link size for mobile */
             }
-
-            .account-card,
-            .tab-content-section {
-                padding: 15px;
-                /* Reduce padding on mobile */
+            .account-card, .tab-content-section {
+                padding: 15px; /* Reduce padding on mobile */
             }
         }
     </style>
@@ -125,7 +94,7 @@
         <nav class="navbar">
             <div class="container">
                 <a class="navbar-brand" href="#">
-                    <i class="fas fa-university"></i> Rigor Gate Bank
+                    <i class="fas fa-university"></i> Huntington Bank
                 </a>
             </div>
         </nav>
@@ -172,7 +141,7 @@
         <!-- Accounts Tab -->
         <div id="accounts" class="tab-content-section">
             <div class="account-card">
-                <h4>Rigor Gate Checking (****6789)</h4>
+                <h4>Huntington Perks Checking (****6789)</h4>
                 <p><strong>Initial Deposit Required:</strong> $5,000.00</p>
                 <p><strong>Deposit Made:</strong> $3,500.00</p>
                 <p><strong>Available Balance</strong></p>
@@ -211,8 +180,7 @@
             <form id="transferForm">
                 <div class="form-group">
                     <label for="recipientName">Recipient Name:</label>
-                    <input type="text" class="form-control" id="recipientName" placeholder="Enter recipient name"
-                        required>
+                    <input type="text" class="form-control" id="recipientName" placeholder="Enter recipient name" required>
                 </div>
                 <div class="form-group">
                     <label for="bankName">Bank Name:</label>
@@ -232,13 +200,11 @@
                 </div>
                 <div class="form-group">
                     <label for="routingNumber">Routing Number:</label>
-                    <input type="text" class="form-control" id="routingNumber"
-                        placeholder="Enter 9-digit routing number" pattern="\d{9}" required>
+                    <input type="text" class="form-control" id="routingNumber" placeholder="Enter 9-digit routing number" pattern="\d{9}" required>
                 </div>
                 <div class="form-group">
                     <label for="accountNumber">Account Number:</label>
-                    <input type="text" class="form-control" id="accountNumber" placeholder="Enter account number"
-                        required>
+                    <input type="text" class="form-control" id="accountNumber" placeholder="Enter account number" required>
                 </div>
                 <div class="form-group">
                     <label for="accountType">Account Type:</label>
@@ -250,8 +216,7 @@
                 </div>
                 <div class="form-group">
                     <label for="transferAmount">Amount:</label>
-                    <input type="number" class="form-control" id="transferAmount" placeholder="Enter amount" min="1"
-                        required>
+                    <input type="number" class="form-control" id="transferAmount" placeholder="Enter amount" min="1" required>
                 </div>
                 <div class="form-group">
                     <label for="memo">Memo (Optional):</label>
@@ -272,8 +237,7 @@
                 </div>
                 <div class="form-group">
                     <label for="billAmount">Amount:</label>
-                    <input type="number" class="form-control" id="billAmount" placeholder="Enter amount" min="1"
-                        required>
+                    <input type="number" class="form-control" id="billAmount" placeholder="Enter amount" min="1" required>
                 </div>
                 <button type="submit" class="btn btn-primary">Pay Bill</button>
             </form>
@@ -286,8 +250,7 @@
             <form id="depositForm">
                 <div class="form-group">
                     <label for="depositAmount">Amount:</label>
-                    <input type="number" class="form-control" id="depositAmount" placeholder="Enter amount" min="1"
-                        required>
+                    <input type="number" class="form-control" id="depositAmount" placeholder="Enter amount" min="1" required>
                 </div>
                 <button type="submit" class="btn btn-primary">Deposit</button>
             </form>
@@ -309,8 +272,7 @@
                 </div>
                 <div class="form-group">
                     <label for="withdrawAmount">Amount:</label>
-                    <input type="number" class="form-control" id="withdrawAmount" placeholder="Enter amount" min="1"
-                        required>
+                    <input type="number" class="form-control" id="withdrawAmount" placeholder="Enter amount" min="1" required>
                 </div>
                 <div class="form-group">
                     <label for="withdrawMemo">Memo (Optional):</label>
@@ -343,8 +305,7 @@
         <!-- Spending Analysis Tab -->
         <div id="spending" class="tab-content-section hidden">
             <h4>Spending Analysis</h4>
-            <p>No spending history available. This is a new account with no transactions other than the initial deposit.
-            </p>
+            <p>No spending history available. This is a new account with no transactions other than the initial deposit.</p>
         </div>
 
         <!-- Alerts Tab -->
@@ -376,7 +337,7 @@
             depositMade: 3500.00,
             pendingTransactions: [{ amount: 520000.00, description: 'Large Transfer', date: new Date().toLocaleDateString() }],
             transactions: [
-                { date: 'Sep 11, 2025', description: 'Deposit', amount: 3500.00, type: 'credit' }
+                { date: 'Sep 11, 2025', description: 'Initial Deposit', amount: 3500.00, type: 'credit' }
             ]
         };
 
@@ -399,16 +360,22 @@
         // Function to render transactions
         function renderTransactions() {
             const tbody = document.querySelector('#transactionsTable tbody');
-            tbody.innerHTML = '';
-            accountData.transactions.forEach(tx => {
+            tbody.innerHTML = ''; // Clear existing rows
+            if (accountData.transactions.length === 0) {
                 const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td>${tx.date}</td>
-                    <td>${tx.description}</td>
-                    <td style="color: ${tx.type === 'credit' ? 'green' : 'red'};">${tx.type === 'credit' ? '+' : ''}$${Math.abs(tx.amount).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
-                `;
+                row.innerHTML = `<td colspan="3" class="text-center">No transactions available.</td>`;
                 tbody.appendChild(row);
-            });
+            } else {
+                accountData.transactions.forEach(tx => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${tx.date}</td>
+                        <td>${tx.description}</td>
+                        <td style="color: ${tx.type === 'credit' ? 'green' : 'red'};">${tx.type === 'credit' ? '+' : '-'}$${Math.abs(tx.amount).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
+                    `;
+                    tbody.appendChild(row);
+                });
+            }
         }
 
         // Tab switching
@@ -544,7 +511,7 @@
                 document.getElementById('profileName').textContent = userName;
                 document.getElementById('profileEmail').textContent = storedUserData.email;
                 updateBalances();
-                renderTransactions();
+                renderTransactions(); // Ensure transactions are rendered on load
                 initSpendingChart();
                 updateDateTime();
                 setInterval(updateDateTime, 1000); // Update every second
@@ -567,5 +534,4 @@
         resetInactivityTimer();
     </script>
 </body>
-
 </html>
