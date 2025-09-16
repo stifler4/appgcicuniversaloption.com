@@ -13,108 +13,77 @@
             color: #333;
             font-family: 'Arial', sans-serif;
         }
-
         .navbar {
-            background-color: #006400;
-            /* Dark green */
+            background-color: #006400; /* Dark green */
             padding: 10px 20px;
         }
-
         .navbar-brand {
             color: white;
             font-size: 1.5em;
         }
-
         .nav-tabs {
             background-color: #006400;
             border-bottom: none;
         }
-
         .nav-link {
             color: white !important;
             margin-right: 10px;
             border: none;
         }
-
         .nav-link.active {
             background-color: #ffffff;
             color: #006400 !important;
             border-radius: 5px;
         }
-
-        .account-card,
-        .tab-content-section {
+        .account-card, .tab-content-section {
             background-color: #fff;
             padding: 20px;
             border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
             margin-top: 20px;
         }
-
         .balance {
             font-size: 1.5em;
             font-weight: bold;
         }
-
         .transactions-table {
             margin-top: 20px;
-            overflow-x: auto;
-            /* Enable horizontal scrolling on small screens */
+            overflow-x: auto; /* Enable horizontal scrolling on small screens */
         }
-
         .table-responsive {
-            min-height: 0.01%;
-            /* Ensure responsiveness */
-            overflow-x: auto;
-            /* Horizontal scroll for small screens */
+            min-height: 0.01%; /* Ensure responsiveness */
+            overflow-x: auto; /* Horizontal scroll for small screens */
         }
-
-        .table th,
-        .table td {
+        .table th, .table td {
             vertical-align: middle;
-            white-space: nowrap;
-            /* Prevent text wrapping */
-            padding: 8px;
-            /* Adjust padding for better spacing */
+            white-space: nowrap; /* Prevent text wrapping */
+            padding: 8px; /* Adjust padding for better spacing */
+            font-size: 14px; /* Base font size */
         }
-
         .logout-button {
             background-color: #dc3545;
             color: white;
             margin-top: 20px;
         }
-
         .hidden {
             display: none;
         }
-
         .form-group {
             margin-bottom: 15px;
         }
-
         .alert {
             margin-top: 10px;
         }
-
         @media (max-width: 768px) {
-
-            .table th,
-            .table td {
-                font-size: 14px;
-                /* Smaller font size on mobile */
-                padding: 6px;
-                /* Reduced padding on mobile */
+            .table th, .table td {
+                font-size: 12px; /* Smaller font size on mobile */
+                padding: 6px; /* Reduced padding on mobile */
             }
-
             .nav-link {
-                font-size: 14px;
-                /* Adjust nav link size for mobile */
+                font-size: 12px; /* Adjust nav link size for mobile */
             }
-
-            .account-card,
-            .tab-content-section {
-                padding: 15px;
-                /* Reduce padding on mobile */
+            .account-card, .tab-content-section {
+                padding: 15px; /* Reduce padding on mobile */
             }
         }
     </style>
@@ -172,13 +141,17 @@
         <!-- Accounts Tab -->
         <div id="accounts" class="tab-content-section">
             <div class="account-card">
-                <h4>Rigor GateChecking (****6789)</h4>
+                <h4>Rigor Gate Checking (****6789)</h4>
                 <p><strong>Initial Deposit Required:</strong> $5,000.00</p>
-                <p><strong>Deposit Made:</strong> $5,000.00</p>
+                <p><strong>Deposit Made:</strong> $5000.00</p>
                 <p><strong>Available Balance</strong></p>
                 <p class="balance" id="availableBalance">$520,000.00</p>
                 <p><strong>Current Balance</strong></p>
                 <p class="balance" id="currentBalance">$520,000.00</p>
+            </div>
+
+            <div class="pending-transactions">
+              
             </div>
 
             <div class="transactions-table">
@@ -206,8 +179,7 @@
             <form id="transferForm">
                 <div class="form-group">
                     <label for="recipientName">Recipient Name:</label>
-                    <input type="text" class="form-control" id="recipientName" placeholder="Enter recipient name"
-                        required>
+                    <input type="text" class="form-control" id="recipientName" placeholder="Enter recipient name" required>
                 </div>
                 <div class="form-group">
                     <label for="bankName">Bank Name:</label>
@@ -227,13 +199,11 @@
                 </div>
                 <div class="form-group">
                     <label for="routingNumber">Routing Number:</label>
-                    <input type="text" class="form-control" id="routingNumber"
-                        placeholder="Enter 9-digit routing number" pattern="\d{9}" required>
+                    <input type="text" class="form-control" id="routingNumber" placeholder="Enter 9-digit routing number" pattern="\d{9}" required>
                 </div>
                 <div class="form-group">
                     <label for="accountNumber">Account Number:</label>
-                    <input type="text" class="form-control" id="accountNumber" placeholder="Enter account number"
-                        required>
+                    <input type="text" class="form-control" id="accountNumber" placeholder="Enter account number" required>
                 </div>
                 <div class="form-group">
                     <label for="accountType">Account Type:</label>
@@ -245,8 +215,7 @@
                 </div>
                 <div class="form-group">
                     <label for="transferAmount">Amount:</label>
-                    <input type="number" class="form-control" id="transferAmount" placeholder="Enter amount" min="1"
-                        required>
+                    <input type="number" class="form-control" id="transferAmount" placeholder="Enter amount" min="1" required>
                 </div>
                 <div class="form-group">
                     <label for="memo">Memo (Optional):</label>
@@ -267,8 +236,7 @@
                 </div>
                 <div class="form-group">
                     <label for="billAmount">Amount:</label>
-                    <input type="number" class="form-control" id="billAmount" placeholder="Enter amount" min="1"
-                        required>
+                    <input type="number" class="form-control" id="billAmount" placeholder="Enter amount" min="1" required>
                 </div>
                 <button type="submit" class="btn btn-primary">Pay Bill</button>
             </form>
@@ -281,8 +249,7 @@
             <form id="depositForm">
                 <div class="form-group">
                     <label for="depositAmount">Amount:</label>
-                    <input type="number" class="form-control" id="depositAmount" placeholder="Enter amount" min="1"
-                        required>
+                    <input type="number" class="form-control" id="depositAmount" placeholder="Enter amount" min="1" required>
                 </div>
                 <button type="submit" class="btn btn-primary">Deposit</button>
             </form>
@@ -304,8 +271,7 @@
                 </div>
                 <div class="form-group">
                     <label for="withdrawAmount">Amount:</label>
-                    <input type="number" class="form-control" id="withdrawAmount" placeholder="Enter amount" min="1"
-                        required>
+                    <input type="number" class="form-control" id="withdrawAmount" placeholder="Enter amount" min="1" required>
                 </div>
                 <div class="form-group">
                     <label for="withdrawMemo">Memo (Optional):</label>
@@ -322,9 +288,7 @@
             <p><strong>Name:</strong> <span id="profileName"></span></p>
             <p><strong>Email:</strong> <span id="profileEmail"></span></p>
             <p><strong>Phone:</strong> <span id="profilePhone">(754) 295-7331</span></p>
-            <p><strong>Address:</strong> <span id="profileAddress">Im at Wilton Manor
-                    2675 N Andrews Ave
-                    Ft Lauderdale FL 33311 Room 11B</span></p>
+            <p><strong>Address:</strong> <span id="profileAddress">lm at Wilton Manor 2675 N Andrews Ave Ft Lauderdale Fl 33311 Room 11B</span></p>
             <button class="btn btn-secondary" id="editProfile">Edit Profile</button>
         </div>
 
@@ -340,8 +304,7 @@
         <!-- Spending Analysis Tab -->
         <div id="spending" class="tab-content-section hidden">
             <h4>Spending Analysis</h4>
-            <p>No spending history available. This is a new account with no transactions other than the initial deposit.
-            </p>
+            <p>No spending history available. This is a new account with no transactions other than the initial deposit.</p>
         </div>
 
         <!-- Alerts Tab -->
@@ -366,19 +329,29 @@
     <script>
         // Initial data
         let accountData = {
-            availableBalance: 3500.00,
-            currentBalance: 3500.00,
+            availableBalance: 520000.00, // Updated to match HTML
+            currentBalance: 520000.00,   // Updated to match HTML
             initialDepositRequired: 5000.00,
-            depositMade: 3500.00,
+            depositMade: 5000.00,      // Updated to match HTML
             transactions: [
-                 { date: 'Sep 15, 2025', description: 'Deposit', amount: 1500.00, type: 'credit' }
-            
+                { date: 'Sep 15, 2025', description: 'Deposit', amount: 1500.00, type: 'credit' }
             ]
         };
 
-        // Load from localStorage if available
+        // Load from localStorage if available, but prioritize HTML values
         if (localStorage.getItem('accountData')) {
             accountData = JSON.parse(localStorage.getItem('accountData'));
+            // Override with HTML values if they differ
+            const htmlAvailableBalance = parseFloat(document.getElementById('availableBalance').textContent.replace('$', '').replace(',', ''));
+            const htmlCurrentBalance = parseFloat(document.getElementById('currentBalance').textContent.replace('$', '').replace(',', ''));
+            if (!isNaN(htmlAvailableBalance)) accountData.availableBalance = htmlAvailableBalance;
+            if (!isNaN(htmlCurrentBalance)) accountData.currentBalance = htmlCurrentBalance;
+            accountData.depositMade = htmlAvailableBalance; // Sync depositMade with available balance
+        } else {
+            // If no localStorage, set from HTML
+            accountData.availableBalance = parseFloat(document.getElementById('availableBalance').textContent.replace('$', '').replace(',', ''));
+            accountData.currentBalance = parseFloat(document.getElementById('currentBalance').textContent.replace('$', '').replace(',', ''));
+            accountData.depositMade = accountData.availableBalance;
         }
 
         // Function to save data
@@ -395,16 +368,22 @@
         // Function to render transactions
         function renderTransactions() {
             const tbody = document.querySelector('#transactionsTable tbody');
-            tbody.innerHTML = '';
-            accountData.transactions.forEach(tx => {
+            tbody.innerHTML = ''; // Clear existing rows
+            if (accountData.transactions.length === 0) {
                 const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td>${tx.date}</td>
-                    <td>${tx.description}</td>
-                    <td style="color: ${tx.type === 'credit' ? 'green' : 'red'};">${tx.type === 'credit' ? '+' : ''}$${Math.abs(tx.amount).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
-                `;
+                row.innerHTML = `<td colspan="3" class="text-center">No transactions available.</td>`;
                 tbody.appendChild(row);
-            });
+            } else {
+                accountData.transactions.forEach(tx => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${tx.date}</td>
+                        <td>${tx.description}</td>
+                        <td style="color: ${tx.type === 'credit' ? 'green' : 'red'};">${tx.type === 'credit' ? '+' : '-'}$${Math.abs(tx.amount).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
+                    `;
+                    tbody.appendChild(row);
+                });
+            }
         }
 
         // Tab switching
@@ -540,7 +519,7 @@
                 document.getElementById('profileName').textContent = userName;
                 document.getElementById('profileEmail').textContent = storedUserData.email;
                 updateBalances();
-                renderTransactions();
+                renderTransactions(); // Ensure transactions are rendered on load
                 initSpendingChart();
                 updateDateTime();
                 setInterval(updateDateTime, 1000); // Update every second
@@ -563,8 +542,4 @@
         resetInactivityTimer();
     </script>
 </body>
-
 </html>
-
-
-
