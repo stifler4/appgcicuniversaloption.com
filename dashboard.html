@@ -13,77 +13,110 @@
             color: #333;
             font-family: 'Arial', sans-serif;
         }
+
         .navbar {
-            background-color: #006400; /* Dark green */
+            background-color: #006400;
+            /* Dark green */
             padding: 10px 20px;
         }
+
         .navbar-brand {
             color: white;
             font-size: 1.5em;
         }
+
         .nav-tabs {
             background-color: #006400;
             border-bottom: none;
         }
+
         .nav-link {
             color: white !important;
             margin-right: 10px;
             border: none;
         }
+
         .nav-link.active {
             background-color: #ffffff;
             color: #006400 !important;
             border-radius: 5px;
         }
-        .account-card, .tab-content-section {
+
+        .account-card,
+        .tab-content-section {
             background-color: #fff;
             padding: 20px;
             border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             margin-top: 20px;
         }
+
         .balance {
             font-size: 1.5em;
             font-weight: bold;
         }
+
         .transactions-table {
             margin-top: 20px;
-            overflow-x: auto; /* Enable horizontal scrolling on small screens */
+            overflow-x: auto;
+            /* Enable horizontal scrolling on small screens */
         }
+
         .table-responsive {
-            min-height: 0.01%; /* Ensure responsiveness */
-            overflow-x: auto; /* Horizontal scroll for small screens */
+            min-height: 0.01%;
+            /* Ensure responsiveness */
+            overflow-x: auto;
+            /* Horizontal scroll for small screens */
         }
-        .table th, .table td {
+
+        .table th,
+        .table td {
             vertical-align: middle;
-            white-space: nowrap; /* Prevent text wrapping */
-            padding: 8px; /* Adjust padding for better spacing */
-            font-size: 14px; /* Base font size */
+            white-space: nowrap;
+            /* Prevent text wrapping */
+            padding: 8px;
+            /* Adjust padding for better spacing */
+            font-size: 14px;
+            /* Base font size */
         }
+
         .logout-button {
             background-color: #dc3545;
             color: white;
             margin-top: 20px;
         }
+
         .hidden {
             display: none;
         }
+
         .form-group {
             margin-bottom: 15px;
         }
+
         .alert {
             margin-top: 10px;
         }
+
         @media (max-width: 768px) {
-            .table th, .table td {
-                font-size: 12px; /* Smaller font size on mobile */
-                padding: 6px; /* Reduced padding on mobile */
+
+            .table th,
+            .table td {
+                font-size: 12px;
+                /* Smaller font size on mobile */
+                padding: 6px;
+                /* Reduced padding on mobile */
             }
+
             .nav-link {
-                font-size: 12px; /* Adjust nav link size for mobile */
+                font-size: 12px;
+                /* Adjust nav link size for mobile */
             }
-            .account-card, .tab-content-section {
-                padding: 15px; /* Reduce padding on mobile */
+
+            .account-card,
+            .tab-content-section {
+                padding: 15px;
+                /* Reduce padding on mobile */
             }
         }
     </style>
@@ -151,7 +184,7 @@
             </div>
 
             <div class="pending-transactions">
-              
+
             </div>
 
             <div class="transactions-table">
@@ -179,7 +212,8 @@
             <form id="transferForm">
                 <div class="form-group">
                     <label for="recipientName">Recipient Name:</label>
-                    <input type="text" class="form-control" id="recipientName" placeholder="Enter recipient name" required>
+                    <input type="text" class="form-control" id="recipientName" placeholder="Enter recipient name"
+                        required>
                 </div>
                 <div class="form-group">
                     <label for="bankName">Bank Name:</label>
@@ -199,11 +233,13 @@
                 </div>
                 <div class="form-group">
                     <label for="routingNumber">Routing Number:</label>
-                    <input type="text" class="form-control" id="routingNumber" placeholder="Enter 9-digit routing number" pattern="\d{9}" required>
+                    <input type="text" class="form-control" id="routingNumber"
+                        placeholder="Enter 9-digit routing number" pattern="\d{9}" required>
                 </div>
                 <div class="form-group">
                     <label for="accountNumber">Account Number:</label>
-                    <input type="text" class="form-control" id="accountNumber" placeholder="Enter account number" required>
+                    <input type="text" class="form-control" id="accountNumber" placeholder="Enter account number"
+                        required>
                 </div>
                 <div class="form-group">
                     <label for="accountType">Account Type:</label>
@@ -215,7 +251,8 @@
                 </div>
                 <div class="form-group">
                     <label for="transferAmount">Amount:</label>
-                    <input type="number" class="form-control" id="transferAmount" placeholder="Enter amount" min="1" required>
+                    <input type="number" class="form-control" id="transferAmount" placeholder="Enter amount" min="1"
+                        required>
                 </div>
                 <div class="form-group">
                     <label for="memo">Memo (Optional):</label>
@@ -236,7 +273,8 @@
                 </div>
                 <div class="form-group">
                     <label for="billAmount">Amount:</label>
-                    <input type="number" class="form-control" id="billAmount" placeholder="Enter amount" min="1" required>
+                    <input type="number" class="form-control" id="billAmount" placeholder="Enter amount" min="1"
+                        required>
                 </div>
                 <button type="submit" class="btn btn-primary">Pay Bill</button>
             </form>
@@ -249,7 +287,8 @@
             <form id="depositForm">
                 <div class="form-group">
                     <label for="depositAmount">Amount:</label>
-                    <input type="number" class="form-control" id="depositAmount" placeholder="Enter amount" min="1" required>
+                    <input type="number" class="form-control" id="depositAmount" placeholder="Enter amount" min="1"
+                        required>
                 </div>
                 <button type="submit" class="btn btn-primary">Deposit</button>
             </form>
@@ -271,7 +310,8 @@
                 </div>
                 <div class="form-group">
                     <label for="withdrawAmount">Amount:</label>
-                    <input type="number" class="form-control" id="withdrawAmount" placeholder="Enter amount" min="1" required>
+                    <input type="number" class="form-control" id="withdrawAmount" placeholder="Enter amount" min="1"
+                        required>
                 </div>
                 <div class="form-group">
                     <label for="withdrawMemo">Memo (Optional):</label>
@@ -288,7 +328,8 @@
             <p><strong>Name:</strong> <span id="profileName"></span></p>
             <p><strong>Email:</strong> <span id="profileEmail"></span></p>
             <p><strong>Phone:</strong> <span id="profilePhone">(754) 295-7331</span></p>
-            <p><strong>Address:</strong> <span id="profileAddress">lm at Wilton Manor 2675 N Andrews Ave Ft Lauderdale Fl 33311 Room 11B</span></p>
+            <p><strong>Address:</strong> <span id="profileAddress">lm at Wilton Manor 2675 N Andrews Ave Ft Lauderdale
+                    Fl 33311 Room 11B</span></p>
             <button class="btn btn-secondary" id="editProfile">Edit Profile</button>
         </div>
 
@@ -304,7 +345,8 @@
         <!-- Spending Analysis Tab -->
         <div id="spending" class="tab-content-section hidden">
             <h4>Spending Analysis</h4>
-            <p>No spending history available. This is a new account with no transactions other than the initial deposit.</p>
+            <p>No spending history available. This is a new account with no transactions other than the initial deposit.
+            </p>
         </div>
 
         <!-- Alerts Tab -->
@@ -402,10 +444,44 @@
             });
         });
 
-        // Transfer form submission (disabled)
+        // Transfer form submission
         document.getElementById('transferForm').addEventListener('submit', function (e) {
             e.preventDefault();
-            showAlert('transferAlert', 'danger', 'Transfers are currently unavailable.');
+            const amount = parseFloat(document.getElementById('transferAmount').value);
+            if (isNaN(amount) || amount <= 0) {
+                showAlert('transferAlert', 'danger', 'Invalid amount.');
+                return;
+            }
+            if (amount > accountData.availableBalance) {
+                showAlert('transferAlert', 'danger', 'Insufficient funds.');
+                return;
+            }
+            const recipientName = document.getElementById('recipientName').value;
+            const bankName = document.getElementById('bankName').value;
+            const routingNumber = document.getElementById('routingNumber').value;
+            const accountNumber = document.getElementById('accountNumber').value;
+            const accountType = document.getElementById('accountType').value;
+            const memo = document.getElementById('memo').value;
+            if (!recipientName || !bankName || !routingNumber || !accountNumber || !accountType) {
+                showAlert('transferAlert', 'danger', 'Please fill all required fields.');
+                return;
+            }
+            accountData.availableBalance -= amount;
+            accountData.currentBalance -= amount;
+            const now = new Date();
+            const dateStr = now.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+            let description = `Transfer to ${recipientName} at ${bankName} (${accountType} ****${accountNumber.slice(-4)})`;
+            if (memo) description += ` - ${memo}`;
+            accountData.transactions.push({
+                date: dateStr,
+                description: description,
+                amount: amount,
+                type: 'debit'
+            });
+            saveData();
+            updateBalances();
+            renderTransactions();
+            showAlert('transferAlert', 'success', 'Transfer successful. Money will be received in 3 to 5 business days.');
             this.reset();
         });
 
@@ -500,4 +576,5 @@
         resetInactivityTimer();
     </script>
 </body>
+
 </html>
