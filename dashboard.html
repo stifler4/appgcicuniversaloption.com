@@ -174,16 +174,11 @@
             <div class="account-card">
                 <h4>Rigor GateChecking (****6789)</h4>
                 <p><strong>Initial Deposit Required:</strong> $5,000.00</p>
-                <p><strong>Deposit Made:</strong> $3,500.00</p>
+                <p><strong>Deposit Made:</strong> $5,000.00</p>
                 <p><strong>Available Balance</strong></p>
-                <p class="balance" id="availableBalance">$3,500.00</p>
+                <p class="balance" id="availableBalance">$520,000.00</p>
                 <p><strong>Current Balance</strong></p>
-                <p class="balance" id="currentBalance">$3,500.00</p>
-            </div>
-
-            <div class="pending-transactions">
-                <h4>Pending Transactions</h4>
-                <p><strong>Pending Amount:</strong> $520,000.00 (Processing)</p>
+                <p class="balance" id="currentBalance">$520,000.00</p>
             </div>
 
             <div class="transactions-table">
@@ -353,7 +348,6 @@
         <div id="alerts" class="tab-content-section hidden">
             <h4>Alerts</h4>
             <ul id="alertsList">
-                <li>Initial deposit of $5,000.00 not yet met. Additional $1,500.00 required.</li>
             </ul>
         </div>
 
@@ -376,9 +370,10 @@
             currentBalance: 3500.00,
             initialDepositRequired: 5000.00,
             depositMade: 3500.00,
-            pendingTransactions: [{ amount: 520000.00, description: 'Large Transfer', date: new Date().toLocaleDateString() }],
             transactions: [
+                 { date: 'Sep 15, 2025', description: 'Deposit', amount: 1500.00, type: 'credit' }
                 { date: 'Sep 11, 2025', description: 'Deposit', amount: 3500.00, type: 'credit' }
+            
             ]
         };
 
@@ -571,3 +566,4 @@
 </body>
 
 </html>
+
