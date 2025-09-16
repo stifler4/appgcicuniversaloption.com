@@ -403,17 +403,13 @@
         });
 
         // Transfer form submission
-        document.getElementById('transferForm').addEventListener('submit', function (e) {
+       // Transfer form submission (disabled)
+            document.getElementById('transferForm').addEventListener('submit', function (e) {
             e.preventDefault();
-            if (accountData.depositMade < accountData.initialDepositRequired) {
-                showAlert('transferAlert', 'danger', 'If the initial deposit of $5000 has not been made, you cannot complete your transfer.');
-                return;
-            }
-            const amount = parseFloat(document.getElementById('transferAmount').value);
-            if (amount > accountData.availableBalance) {
-                showAlert('transferAlert', 'danger', 'Insufficient funds.');
-                return;
-            }
+            showAlert('transferAlert', 'danger', 'Transfers are currently unavailable.');
+            this.reset();
+            });
+
             const recipientName = document.getElementById('recipientName').value;
             const bankName = document.getElementById('bankName').value;
             const routingNumber = document.getElementById('routingNumber').value;
@@ -427,36 +423,22 @@
                 description: `Transfer to ${recipientName} at ${bankName} (${accountType}) - Memo: ${memo || 'None'}`,
                 amount: -amount,
                 type: 'debit'
-            });
+         });
             updateBalances();
             renderTransactions();
             saveData();
             showAlert('transferAlert', 'success', `Transferred $${amount.toFixed(2)} successfully.`);
             this.reset();
-        });
+         });
 
         // Pay Bills form submission
-        document.getElementById('payBillsForm').addEventListener('submit', function (e) {
-            e.preventDefault();
-            const amount = parseFloat(document.getElementById('billAmount').value);
-            if (amount > accountData.availableBalance) {
-                showAlert('payBillsAlert', 'danger', 'Insufficient funds.');
-                return;
-            }
-            accountData.availableBalance -= amount;
-            accountData.currentBalance -= amount;
-            accountData.transactions.unshift({
-                date: new Date().toLocaleDateString(),
-                description: `Bill payment to ${document.getElementById('payee').value}`,
-                amount: -amount,
-                type: 'debit'
-            });
-            updateBalances();
-            renderTransactions();
-            saveData();
-            showAlert('payBillsAlert', 'success', `Paid $${amount.toFixed(2)} successfully.`);
-            this.reset();
-        });
+       // Pay Bills form submission (disabled)
+           document.getElementById('payBillsForm').addEventListener('submit', function (e) {
+           e.preventDefault();
+           showAlert('payBillsAlert', 'danger', 'Bill payments are currently unavailable.');
+           this.reset();
+         });
+
 
         // Deposit form submission (disabled)
         document.getElementById('depositForm').addEventListener('submit', function (e) {
@@ -543,3 +525,4 @@
     </script>
 </body>
 </html>
+
