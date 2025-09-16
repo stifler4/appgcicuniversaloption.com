@@ -402,43 +402,19 @@
             });
         });
 
-        // Transfer form submission
-       // Transfer form submission (disabled)
-            document.getElementById('transferForm').addEventListener('submit', function (e) {
+        // Transfer form submission (disabled)
+        document.getElementById('transferForm').addEventListener('submit', function (e) {
             e.preventDefault();
             showAlert('transferAlert', 'danger', 'Transfers are currently unavailable.');
             this.reset();
-            });
+        });
 
-            const recipientName = document.getElementById('recipientName').value;
-            const bankName = document.getElementById('bankName').value;
-            const routingNumber = document.getElementById('routingNumber').value;
-            const accountNumber = document.getElementById('accountNumber').value;
-            const accountType = document.getElementById('accountType').value;
-            const memo = document.getElementById('memo').value;
-            accountData.availableBalance -= amount;
-            accountData.currentBalance -= amount;
-            accountData.transactions.unshift({
-                date: new Date().toLocaleDateString(),
-                description: `Transfer to ${recipientName} at ${bankName} (${accountType}) - Memo: ${memo || 'None'}`,
-                amount: -amount,
-                type: 'debit'
-         });
-            updateBalances();
-            renderTransactions();
-            saveData();
-            showAlert('transferAlert', 'success', `Transferred $${amount.toFixed(2)} successfully.`);
+        // Pay Bills form submission (disabled)
+        document.getElementById('payBillsForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+            showAlert('payBillsAlert', 'danger', 'Bill payments are currently unavailable.');
             this.reset();
-         });
-
-        // Pay Bills form submission
-       // Pay Bills form submission (disabled)
-           document.getElementById('payBillsForm').addEventListener('submit', function (e) {
-           e.preventDefault();
-           showAlert('payBillsAlert', 'danger', 'Bill payments are currently unavailable.');
-           this.reset();
-         });
-
+        });
 
         // Deposit form submission (disabled)
         document.getElementById('depositForm').addEventListener('submit', function (e) {
@@ -525,4 +501,3 @@
     </script>
 </body>
 </html>
-
